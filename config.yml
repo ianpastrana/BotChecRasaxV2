@@ -1,0 +1,28 @@
+# Configuration for Rasa NLU.
+# https://rasa.com/docs/rasa/nlu/components/
+language: es
+pipeline: 
+- name: "WhitespaceTokenizer"
+- name: "RegexFeaturizer"
+- name: "CRFEntityExtractor"
+- name: "EntitySynonymMapper"
+- name: "CountVectorsFeaturizer"
+- name: "DIETClassifier"
+  "epochs" : 300
+
+# Configuration for Rasa Core.
+# https://rasa.com/docs/rasa/core/policies/
+policies:
+  # Your assistant uses policies to decide which action to take at each step in a conversation. There are machine-learning and rule-based policies 
+  # that your assistant can use in tandem.
+  # https://rasa.com/docs/rasa/policies/
+  - name: MemoizationPolicy
+  - name: RulePolicy
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 300
+
+
+
+# ****************************************************
+

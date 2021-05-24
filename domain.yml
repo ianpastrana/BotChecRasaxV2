@@ -1,0 +1,109 @@
+version: "2.0"
+
+
+session_config:
+  session_expiration_time: 60  # value in minutes, 0 means infinitely long
+  carry_over_slots_to_new_session: true  # set to false to forget slots between sessions
+
+
+intents:
+- saludo
+- ubicacion
+- cuenta
+- solicitud_datos_cuenta
+- falla_servicio_energia
+- explicacion_factura
+- reclamo_valor_factura
+- explicacion_financiaciones
+- despedida
+- afirmaciones
+- fecha_pago_factura
+- pagos_realizados
+- informacion_pqrs_interpuestos
+- solicitud_factura
+- informacion_aliados_comerciales
+
+entities:
+- ubicacion
+- numero_cuenta
+- hora
+- periodo
+- costo
+- financiacion
+- pago
+- pqr
+- copia
+- accion
+- articulo
+
+slots:
+  ubicacion:
+    type: text
+  accion:
+    type: text
+  copia:
+    type: text
+  pqr:
+    type: text
+  pago:
+    type: text
+  costo:
+    type: text
+  fecha_factura:
+    type: text
+  financiacion:
+    type: text
+  hora:
+    type: text
+  numero_cuenta:
+    type: float
+    max_value: 1.0
+    min_value: 0.0
+  periodo:
+    type: text
+
+responses:
+  utter_saludo:
+  - text: ¡Hola? En que te puedo ayudar?
+  - text: ¡Hola, Cómo estás hoy!!!! En qué te puedo ayudar?
+  utter_esperar:
+  - text: Dame un Segundo, por favor
+  - text: Esperame un momento
+  utter_pedir_cuenta:
+  - text: Cual es tu numero de cuenta?
+  - text: Dime el numero de tu cuenta
+  utter_ask_dob:
+  - text: What is your DOB in DD-MM format?
+  utter_subscribirse:
+  - text: Quieres subscribirte para recibir informacion de tu factura?
+  utter_despedida:
+  - text: Con mucho gusto
+  utter_template:
+  - text: Te puedo ayudar en algo más?
+
+actions:
+- utter_saludo
+- utter_pedir_cuenta
+- utter_despedida
+- accion_obtener_datos_usuario
+- accion_alto_costo
+- accion_valor_a_pagar
+- accion_financiacion_productos
+- accion_informacion_pagos
+- accion_informacion_pqrs
+- action_session_start
+- accion_solicitud_factura
+- accion_aliados_comerciales
+- action_session_start
+- forma_cupo_tarjeta
+
+
+forms:
+  forma_cupo_tarjeta:
+    numero_cuenta:
+    - type: from_entity
+      entity: numero_cuenta
+    num_people:
+      - type: from_entity
+        entity: ubicacion
+  forma_aliados_comerciales:
